@@ -21,7 +21,7 @@ Service Info: OS: Linux; CPE: cpe:/o:linux:linux_kernel
 
 ```
 
-![[images/Pasted image 20250504224043.png]]
+![[/images/Pasted image 20250504224043.png]]
 
 Tenemos dentro de la maquina un apartado de pagina web
 ![[remote-blog/images/Pasted image 20250504224324.png]]
